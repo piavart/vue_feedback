@@ -1,18 +1,25 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="container">
+        <!--
+        отдаю нужный компонент в зависимости от прав пользователя
+        можно разделить на разные роуты
+        -->
+        <feedback-form v-if="$auth.user().roles.indexOf('client') !== -1"></feedback-form>
+        <manager-dashboard v-if="$auth.user().roles.indexOf('manager') !== -1"></manager-dashboard>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import FeedbackForm from "../components/FeedbackForm";
+import ManagerDashboard from "../components/ManagerDashboard";
 
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
+    name: 'home',
+    components: {ManagerDashboard, FeedbackForm},
+    data() {
+        return {
+
+        }
+    }
 }
 </script>
